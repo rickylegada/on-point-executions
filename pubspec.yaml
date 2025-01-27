@@ -7,13 +7,20 @@ environment:
   sdk: ^3.6.0
 
 dependencies:
+  build_runner: ^2.4.14
+  dio: ^5.7.0
   flutter:
     sdk: flutter
+  get_it: ^8.0.3
+  json_annotation: ^4.1.0
+  retrofit: ^4.4.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  json_serializable: ^6.9.0
+  retrofit_generator: ^9.1.5
 
 flutter:
   uses-material-design: true
