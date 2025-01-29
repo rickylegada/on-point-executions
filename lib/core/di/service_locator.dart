@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:on_point_executions/core/network/api_client.dart';
 import 'package:on_point_executions/data/repositories/user_repository_impl.dart';
 import 'package:on_point_executions/domain/repositories/user_repository.dart';
-import 'package:retrofit/retrofit.dart';
 
 final sl = GetIt.instance;
 
