@@ -11,8 +11,10 @@ dependencies:
   dio: ^5.7.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.0.0
   get_it: ^8.0.3
   json_annotation: ^4.1.0
+  qr_code_scanner_plus: ^2.0.9+1
   retrofit: ^4.4.1
 
 dev_dependencies:

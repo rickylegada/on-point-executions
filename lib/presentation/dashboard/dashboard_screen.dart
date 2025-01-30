@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:on_point_executions/common/widgets/base_text.dart';
+import 'package:on_point_executions/common/widgets/index.dart';
 import 'package:on_point_executions/config/configuration.dart';
 import 'package:on_point_executions/presentation/dashboard/widgets/event_card.dart';
+import 'package:on_point_executions/presentation/registration/registration_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   final List<Map<String, dynamic>> events;
@@ -20,7 +21,8 @@ class DashboardScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: BaseText.titleText(Config.appName, bold: true)),
+        centerTitle: true,
+        title: BaseText.titleText(Config.appName, bold: true),
         backgroundColor: Colors.yellow.shade700, // Use yellow as app bar color
       ),
       body: Padding(
@@ -29,9 +31,18 @@ class DashboardScreen extends StatelessWidget {
           itemCount: events.length,
           itemBuilder: (context, index) {
             final event = events[index];
-            return EventCard(
-              eventName: event['name'],
-              isActive: event['isActive'],
+            return GestureDetector(
+              onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RegistrationScreen(eventName: '',),
+      ),
+            );},
+              child: EventCard(
+                eventName: event['name'],
+                isActive: event['isActive'],
+              ),
             );
           },
         ),

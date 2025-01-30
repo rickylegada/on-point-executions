@@ -18,6 +18,10 @@ flutter_test
 3.3
 file:///C:/Dev/flutter/packages/flutter_test/
 file:///C:/Dev/flutter/packages/flutter_test/lib/
+flutter_web_plugins
+3.2
+file:///C:/Dev/flutter/packages/flutter_web_plugins/
+file:///C:/Dev/flutter/packages/flutter_web_plugins/lib/
 _fe_analyzer_shared
 3.3
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/_fe_analyzer_shared-79.0.0/
@@ -34,6 +38,10 @@ async
 2.18
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0/
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0/lib/
+bloc
+2.14
+file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/bloc-9.0.0/
+file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/bloc-9.0.0/lib/
 boolean_selector
 2.17
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1/
@@ -122,6 +130,10 @@ fixnum
 3.1
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/fixnum-1.1.1/
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/fixnum-1.1.1/lib/
+flutter_bloc
+2.14
+file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_bloc-9.0.0/
+file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_bloc-9.0.0/lib/
 flutter_lints
 3.5
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-5.0.0/
@@ -206,6 +218,10 @@ mime
 3.2
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/mime-2.0.0/
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/mime-2.0.0/lib/
+nested
+2.12
+file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0/
+file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0/lib/
 package_config
 3.4
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/package_config-2.1.1/
@@ -222,6 +238,10 @@ protobuf
 2.19
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/protobuf-3.1.0/
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/protobuf-3.1.0/lib/
+provider
+2.12
+file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.1.2/
+file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.1.2/lib/
 pub_semver
 3.4
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/pub_semver-2.1.5/
@@ -230,6 +250,10 @@ pubspec_parse
 3.6
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/pubspec_parse-1.5.0/
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/pubspec_parse-1.5.0/lib/
+qr_code_scanner_plus
+3.3
+file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/qr_code_scanner_plus-2.0.9+1/
+file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/qr_code_scanner_plus-2.0.9+1/lib/
 retrofit
 2.19
 file:///C:/Users/ricky/AppData/Local/Pub/Cache/hosted/pub.dev/retrofit-4.4.2/

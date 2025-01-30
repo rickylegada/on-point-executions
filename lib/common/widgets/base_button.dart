@@ -17,7 +17,7 @@ class BaseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final TextStyle defaultTextStyle = theme.textTheme.bodyMedium?.copyWith(
-          fontSize: 14.0,
+          fontSize: 16.0,
           fontFamily: 'Poppins', // Replace with your font family
           color: Colors.black,
         ) ??

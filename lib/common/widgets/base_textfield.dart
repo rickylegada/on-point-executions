@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Custom TextField Widget
 class BaseTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? hintText;
@@ -9,7 +8,6 @@ class BaseTextField extends StatelessWidget {
   final TextStyle? style;
   final bool obscureText;
   final int? maxLines;
-  final InputDecoration? decoration;
 
   const BaseTextField({
     super.key,
@@ -20,27 +18,44 @@ class BaseTextField extends StatelessWidget {
     this.style,
     this.obscureText = false,
     this.maxLines = 1,
-    this.decoration,
   });
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final TextStyle defaultStyle = theme.textTheme.bodyMedium?.copyWith(
-          fontSize: 14.0,
-          fontFamily: 'Poppins', // Replace with your font family
+          fontSize: 16.0,
+          fontFamily: 'Poppins',
         ) ??
-        const TextStyle(fontSize: 14.0);
+        const TextStyle(fontSize: 16.0);
 
-    return TextField(
-      controller: controller,
-      keyboardType: keyboardType,
-      style: style ?? defaultStyle,
-      obscureText: obscureText,
-      maxLines: maxLines,
-      decoration: decoration ?? InputDecoration(
-        hintText: hintText,
-        hintStyle: hintStyle ?? defaultStyle.copyWith(color: Colors.grey),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey.shade300, // Embedded look
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            offset: const Offset(0, 2),
+            blurRadius: 4,
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: TextField(
+        controller: controller,
+        keyboardType: keyboardType,
+        style: style ?? defaultStyle,
+        obscureText: obscureText,
+        maxLines: maxLines,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.grey.shade300,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none),
+          hintText: hintText,
+        ),
       ),
     );
   }
