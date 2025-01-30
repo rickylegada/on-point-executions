@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:on_point_executions/presentation/dashboard/dashboard_screen.dart';
+import 'package:on_point_executions/presentation/login/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,13 +16,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins',
       ),
-      home: DashboardScreen(
-        events: [
-          {'name': 'Event 1', 'isActive': true},
-          {'name': 'Event 2', 'isActive': false},
-          {'name': 'Event 3', 'isActive': true},
-        ],
-      ),
+      home: LoginScreen(),
+      // home: DashboardScreen(
+      //   events: [
+      //     {'name': 'Event 1', 'isActive': true},
+      //     {'name': 'Event 2', 'isActive': false},
+      //     {'name': 'Event 3', 'isActive': true},
+      //   ],
+      // ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:on_point_executions/common/widgets/base_scaffold.dart';
 import 'package:on_point_executions/common/widgets/index.dart';
-import 'package:on_point_executions/config/configuration.dart';
+import 'package:on_point_executions/common/config/configuration.dart';
 
 import 'package:on_point_executions/presentation/settings/settings_screen.dart';
 
@@ -13,7 +14,7 @@ class RegistrationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BaseScaffold(
       appBar: AppBar(
         title: const Text("Event Name", style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.yellow.shade700,

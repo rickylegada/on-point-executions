@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:on_point_executions/common/config/configuration.dart';
+import 'package:on_point_executions/common/widgets/base_scaffold.dart';
 import 'package:on_point_executions/common/widgets/index.dart';
-import 'package:on_point_executions/config/configuration.dart';
 import 'package:on_point_executions/presentation/dashboard/widgets/event_card.dart';
 import 'package:on_point_executions/presentation/registration/registration_screen.dart';
 
@@ -15,30 +16,33 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-
-    // Adjust padding based on screen width
     final double horizontalPadding = screenWidth > 600 ? 32.0 : 16.0;
 
-    return Scaffold(
+    return BaseScaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: BaseText.titleText(Config.appName, bold: true),
-        backgroundColor: Colors.yellow.shade700, // Use yellow as app bar color
-      ),
+      centerTitle: true,
+      title: BaseText.titleText(Config.appName, bold: true),
+      backgroundColor: Colors.yellow,
+
+    ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 24.0),
+        padding:
+            EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 24.0),
         child: ListView.builder(
           itemCount: events.length,
           itemBuilder: (context, index) {
             final event = events[index];
             return GestureDetector(
               onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => RegistrationScreen(eventName: '',),
-      ),
-            );},
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RegistrationScreen(
+                      eventName: '',
+                    ),
+                  ),
+                );
+              },
               child: EventCard(
                 eventName: event['name'],
                 isActive: event['isActive'],
@@ -47,16 +51,41 @@ class DashboardScreen extends StatelessWidget {
           },
         ),
       ),
-      // bottomNavigationBar: BottomAppBar(
-      //   color: Colors.yellow.shade700, // Consistent bottom bar color
-      //   child: IconButton(
-      //     icon: Icon(Icons.settings, color: Colors.white),
-      //     onPressed: () {
-      //       // Handle settings button press
-      //       print('Settings Button Pressed');
-      //     },
-      //   ),
-      // ),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+             DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.yellow,
+              ),
+              child: BaseText.titleText(
+                'Options',
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout, color: Colors.red),
+              title: const Text(
+                'Logout',
+                style: TextStyle(color: Colors.red),
+              ),
+              onTap: () {
+                // Implement your logout functionality here
+                Navigator.pop(context); // Close the drawer after logging out
+              },
+            ),
+            // You can add more items here such as Profile, Settings, etc.
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                // Navigate to Settings screen
+                Navigator.pop(context); // Close the drawer
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
