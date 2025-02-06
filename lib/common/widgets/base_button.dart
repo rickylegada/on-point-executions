@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:on_point_executions/common/config/configuration.dart';
 
 class BaseButton extends StatelessWidget {
   final String text;
@@ -15,23 +16,33 @@ class BaseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final ThemeData theme = Theme.of(context);
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final bool isIpad = screenWidth > 800;
+    final double iPadTextSize = Config.defaultTextSize * 1.5;
     final TextStyle defaultTextStyle = theme.textTheme.bodyMedium?.copyWith(
-          fontSize: 16.0,
+          fontSize: isIpad ? iPadTextSize: Config.defaultTextSize,
           fontFamily: 'Poppins', // Replace with your font family
-          color: Colors.black,
+          color: Colors.white,
         ) ??
-        const TextStyle(fontSize: 14.0, color: Colors.black);
+         TextStyle(fontSize: isIpad ? iPadTextSize : Config.defaultTextSize, color: Colors.white);
 
     return ElevatedButton(
       onPressed: onPressed,
       style: style ?? ElevatedButton.styleFrom(
         textStyle: defaultTextStyle,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        backgroundColor: Colors.blue.shade600,
+        padding: const EdgeInsets.symmetric(horizontal: Config.defaultPadding, vertical: 12.0),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      child: Text(
-        text,
-        style: defaultTextStyle,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: Config.defaultPadding),
+        child: Text(
+          maxLines: 1,
+          text,
+          style: defaultTextStyle,
+        ),
       ),
     );
   }

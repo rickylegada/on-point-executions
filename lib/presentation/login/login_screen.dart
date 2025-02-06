@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:on_point_executions/common/widgets/base_scaffold.dart';
 import 'package:on_point_executions/common/widgets/index.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:on_point_executions/presentation/dashboard/dashboard_screen.dart';
@@ -15,6 +14,11 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    // Check if device is iPad (using screen width for a rough estimate)
+    final bool isIpad = screenWidth > 800;
+
     return BlocProvider(
       create: (_) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginState>(
@@ -29,15 +33,18 @@ class LoginScreen extends StatelessWidget {
         builder: (context, state) {
           return BaseScaffold(
             body: Center(
-              child: BasePadding(
+              child: BasePadding.large(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    BaseTextField(
-                      controller: usernameController,
-                      hintText: 'Enter Username',
+                    SizedBox(
+                      width: isIpad ? 500 : 300,
+                      child: BaseTextField(
+                        controller: usernameController,
+                        hintText: 'Enter Username',
+                      ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 80),
                     BaseButton(
                       onPressed: () {
                         if (usernameController.text.isNotEmpty) {

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:on_point_executions/common/widgets/base_scaffold.dart';
 import 'package:on_point_executions/common/widgets/index.dart';
-import 'package:on_point_executions/common/config/configuration.dart';
 
 import 'package:on_point_executions/presentation/settings/settings_screen.dart';
 
@@ -17,7 +15,7 @@ class RegistrationScreen extends StatelessWidget {
     return BaseScaffold(
       appBar: AppBar(
         title: const Text("Event Name", style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.yellow.shade700,
+        backgroundColor: Colors.yellow,
         centerTitle: true,
         actions: [
           IconButton(
@@ -31,11 +29,10 @@ class RegistrationScreen extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: Colors.grey.shade100,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Card(
               elevation: 4,
@@ -70,19 +67,7 @@ class RegistrationScreen extends StatelessWidget {
             SizedBox(height: 80),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 100, right: 100),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    
-                    backgroundColor: Colors.blue.shade600,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  ),
-                  onPressed: () {},
-                  child: const Text("Register", style: TextStyle(color: Colors.white, fontSize: 16)),
-                ),
-              ),
+              child: BaseButton(text: "Register", onPressed: () {}),
             ),
           ],
         ),

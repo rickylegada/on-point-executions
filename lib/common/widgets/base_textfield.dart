@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:on_point_executions/common/config/configuration.dart';
 
 class BaseTextField extends StatelessWidget {
   final TextEditingController? controller;
@@ -8,6 +9,7 @@ class BaseTextField extends StatelessWidget {
   final TextStyle? style;
   final bool obscureText;
   final int? maxLines;
+  final bool enablePadding;
 
   const BaseTextField({
     super.key,
@@ -18,20 +20,26 @@ class BaseTextField extends StatelessWidget {
     this.style,
     this.obscureText = false,
     this.maxLines = 1,
+    this.enablePadding = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    // Check if device is iPad (using screen width for a rough estimate)
+    final bool isIpad = screenWidth > 800;
     final ThemeData theme = Theme.of(context);
+    double iPadTextSize = Config.defaultTextSize * 2.0;
     final TextStyle defaultStyle = theme.textTheme.bodyMedium?.copyWith(
-          fontSize: 16.0,
+          fontSize: isIpad ? iPadTextSize : Config.defaultTextSize,
           fontFamily: 'Poppins',
         ) ??
-        const TextStyle(fontSize: 16.0);
+        TextStyle(fontSize: isIpad ? iPadTextSize : Config.defaultTextSize);
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey.shade300, // Embedded look
+        color: Colors.grey.shade100, // Embedded look
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -41,7 +49,8 @@ class BaseTextField extends StatelessWidget {
           ),
         ],
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding:
+          enablePadding ? const EdgeInsets.symmetric(horizontal: Config.defaultPadding) : null,
       child: TextField(
         controller: controller,
         keyboardType: keyboardType,

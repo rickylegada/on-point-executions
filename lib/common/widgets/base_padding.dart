@@ -1,28 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:on_point_executions/common/config/configuration.dart';
 
 class BasePadding extends StatelessWidget {
   final Widget child;
+  final bool isLarge;
+  final double? verticalPadding;
 
-  const BasePadding({super.key, required this.child});
+   const BasePadding(
+      {super.key,
+      required this.child,
+      this.isLarge = false,
+      this.verticalPadding,
+      });
 
-  
+   const BasePadding.large(
+      {Key? key, required Widget child, double? verticalPadding,})
+      : this(
+            child: child,
+            key: key,
+            isLarge: true,
+            verticalPadding: verticalPadding,);
 
   @override
   Widget build(BuildContext context) {
-        final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
-
-    // Check if device is iPad (using screen width for a rough estimate)
     final bool isIpad = screenWidth > 800;
-    // You can adjust this padding to whatever is appropriate
-     double horizontalPadding = isIpad ? 62 : 16.0;
-    double verticalPadding = isIpad ?  24.0 : 12;
-// Larger padding for iPad
+    double iPadPadding = Config.defaultPadding * 3;
+    double horizontalPadding = isIpad ? iPadPadding : Config.defaultPadding;
 
+    if (isLarge) {
+      horizontalPadding *= 5;
+    }
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: horizontalPadding,
-        vertical: verticalPadding,
+        vertical: verticalPadding ?? 0,
       ),
       child: child,
     );

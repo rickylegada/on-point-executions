@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:on_point_executions/common/config/configuration.dart';
 
 enum FontSizeType {
   defaultSize,
@@ -54,13 +55,13 @@ class BaseText extends StatelessWidget {
         fontSize = 18.0;
         break;
       case FontSizeType.buttonTextSize:
-        fontSize = 16.0;
+        fontSize = Config.defaultTextSize;
         break;
       case FontSizeType.descriptionTextSize:
         fontSize = 12.0;
         break;
       case FontSizeType.defaultSize:
-        fontSize = 14.0;
+        fontSize = Config.defaultTextSize;
         break;
     }
     

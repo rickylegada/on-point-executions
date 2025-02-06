@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:on_point_executions/common/config/configuration.dart';
-import 'package:on_point_executions/common/widgets/base_scaffold.dart';
 import 'package:on_point_executions/common/widgets/index.dart';
 import 'package:on_point_executions/presentation/dashboard/widgets/event_card.dart';
+import 'package:on_point_executions/presentation/login/login_screen.dart';
 import 'package:on_point_executions/presentation/registration/registration_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -70,8 +70,13 @@ class DashboardScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.red),
               ),
               onTap: () {
-                // Implement your logout functionality here
-                Navigator.pop(context); // Close the drawer after logging out
+                // Implement your logout functionality here// Close the drawer after logging out
+
+                Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => LoginScreen()),
+              (Route<dynamic> route) => false,
+            );
               },
             ),
             // You can add more items here such as Profile, Settings, etc.

@@ -11,14 +11,31 @@ class PinCodeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    // Check if device is iPad (using screen width for a rough estimate)
+    final bool isIpad = screenWidth > 800;
+
+    final buttonSize =  isIpad ? 110.0 : 70.0;
     return BlocProvider(
       create: (_) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state.isPinCodeSuccess && state.pin.length == 4) {
-            Navigator.pushReplacement(
+            // Navigator.pushAndRemoveUntil(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const DashboardScreen(events: [])),
+            //   (Route<dynamic> route) => false,
+            // );
+            Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const DashboardScreen(events: [])),
+              MaterialPageRoute(
+                  builder: (context) => const DashboardScreen(events: [
+                        {'name': 'Event 1', 'isActive': true},
+                        {'name': 'Event 2', 'isActive': false},
+                      ])),
+              (Route<dynamic> route) => false,
             );
           }
         },
@@ -26,8 +43,7 @@ class PinCodeScreen extends StatelessWidget {
           return BaseScaffold(
             title: "Enter Pin code",
             body: Center(
-              child: Padding(
-                padding: EdgeInsets.only(left: 250, right: 250),
+              child: BasePadding.large(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -37,83 +53,98 @@ class PinCodeScreen extends StatelessWidget {
                         4,
                         (index) => Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
+                          child: Container(
                             width: 20,
                             height: 20,
-                            child: CircleAvatar(
-                              radius: 10,
-                              backgroundColor: state.pin.length > index ? Colors.black : Colors.grey,
+                            decoration: BoxDecoration(
+                              color: state.pin.length > index
+                                  ? Colors.black
+                                  : Colors.grey,
+                              shape: BoxShape.circle,
                             ),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    GridView.builder(
-                      shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                        childAspectRatio: 1.5,
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      width: buttonSize * 3 + 16,
+                      height: buttonSize * 4 + 24,
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 8,// Square aspect ratio
+                        ),
+                        itemCount: 12,
+                        itemBuilder: (context, index) {
+                      
+                          if (index < 9) {
+                            return SizedBox(
+                              width: buttonSize,
+                              height: buttonSize,
+                              child: TextButton(
+                                onPressed: () {
+                                  if (state.pin.length < 4) {
+                                    context
+                                        .read<LoginCubit>()
+                                        .addPin((index + 1).toString());
+                                  }
+                                },
+                                style: TextButton.styleFrom(
+                                  foregroundColor: Colors.blue,
+                                  backgroundColor: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                ),
+                                child: Text(
+                                  (index + 1).toString(),
+                                  style:  TextStyle(
+                                    fontSize: isIpad ? 32: 24,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else if (index == 9) {
+                            return const SizedBox.shrink();
+                          } else if (index == 10) {
+                            return SizedBox(
+                              width: buttonSize,
+                              height: buttonSize,
+                              child: TextButton(
+                                onPressed: () {
+                                  if (state.pin.length < 4) {
+                                    context.read<LoginCubit>().addPin('0');
+                                  }
+                                },
+                                style: TextButton.styleFrom(
+                                  foregroundColor: Colors.blue,
+                                  backgroundColor: Colors.transparent,
+                                ),
+                                child: Text('0',
+                                    style: TextStyle(
+                                        fontSize: isIpad ? 32: 24, color: Colors.blue)),
+                              ),
+                            );
+                          } else {
+                            return SizedBox(
+                              width: buttonSize,
+                              height: buttonSize,
+                              child: IconButton(
+                                onPressed: () {
+                                  context.read<LoginCubit>().removePin();
+                                },
+                                icon: const Icon(Icons.backspace),
+                                color: Colors.blue,
+                                iconSize: 20,
+                              ),
+                            );
+                          }
+                        },
                       ),
-                      itemCount: 12,
-                      itemBuilder: (context, index) {
-                        final buttonSize = 50.0; // Fixed button size
-
-                        if (index < 9) {
-                          return SizedBox(
-                            width: buttonSize,
-                            height: buttonSize,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (state.pin.length < 4) {
-                                  context.read<LoginCubit>().addPin((index + 1).toString());
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                              ),
-                              child: Text(
-                                (index + 1).toString(),
-                                style: const TextStyle(fontSize: 20),
-                              ),
-                            ),
-                          );
-                        } else if (index == 9) {
-                          return const SizedBox.shrink();
-                        } else if (index == 10) {
-                          return SizedBox(
-                            width: buttonSize,
-                            height: buttonSize,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (state.pin.length < 4) {
-                                  context.read<LoginCubit>().addPin('0');
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                              ),
-                              child: const Text('0', style: TextStyle(fontSize: 20)),
-                            ),
-                          );
-                        } else {
-                          return SizedBox(
-                            width: buttonSize,
-                            height: buttonSize,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                context.read<LoginCubit>().removePin();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                              ),
-                              child: const Icon(Icons.backspace, size: 20),
-                            ),
-                          );
-                        }
-                      },
                     ),
                   ],
                 ),
