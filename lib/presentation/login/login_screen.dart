@@ -21,17 +21,8 @@ class LoginScreen extends StatelessWidget {
 
     return BlocProvider(
       create: (_) => LoginCubit(),
-      child: BlocConsumer<LoginCubit, LoginState>(
-        listener: (context, state) {
-          if (state.isPinCodeSuccess && state.pin.length == 4) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const DashboardScreen(events: [])),
-            );
-          }
-        },
-        builder: (context, state) {
-          return BaseScaffold(
+      child: 
+           BaseScaffold(
             body: Center(
               child: BasePadding.large(
                 child: Column(
@@ -60,9 +51,9 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-          );
-        },
-      ),
+          )
+        ,
+      
     );
   }
 }

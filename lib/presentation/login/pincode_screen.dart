@@ -11,13 +11,12 @@ class PinCodeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
     final double screenWidth = MediaQuery.of(context).size.width;
 
     // Check if device is iPad (using screen width for a rough estimate)
     final bool isIpad = screenWidth > 800;
 
-    final buttonSize =  isIpad ? 110.0 : 70.0;
+    final buttonSize = isIpad ? 110.0 : 70.0;
     return BlocProvider(
       create: (_) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginState>(
@@ -31,10 +30,14 @@ class PinCodeScreen extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                  builder: (context) => const DashboardScreen(events: [
-                        {'name': 'Event 1', 'isActive': true},
-                        {'name': 'Event 2', 'isActive': false},
-                      ])),
+                builder: (context) => const DashboardScreen(
+                  events: [
+                    {'name': 'Event 1', 'isActive': true},
+                    {'name': 'Event 2', 'isActive': false},
+                  ],
+                  isAdmin: true,
+                ),
+              ),
               (Route<dynamic> route) => false,
             );
           }
@@ -75,11 +78,10 @@ class PinCodeScreen extends StatelessWidget {
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           mainAxisSpacing: 8,
-                          crossAxisSpacing: 8,// Square aspect ratio
+                          crossAxisSpacing: 8, // Square aspect ratio
                         ),
                         itemCount: 12,
                         itemBuilder: (context, index) {
-                      
                           if (index < 9) {
                             return SizedBox(
                               width: buttonSize,
@@ -101,8 +103,8 @@ class PinCodeScreen extends StatelessWidget {
                                 ),
                                 child: Text(
                                   (index + 1).toString(),
-                                  style:  TextStyle(
-                                    fontSize: isIpad ? 32: 24,
+                                  style: TextStyle(
+                                    fontSize: isIpad ? 32 : 24,
                                     color: Colors.blue,
                                   ),
                                 ),
@@ -126,7 +128,8 @@ class PinCodeScreen extends StatelessWidget {
                                 ),
                                 child: Text('0',
                                     style: TextStyle(
-                                        fontSize: isIpad ? 32: 24, color: Colors.blue)),
+                                        fontSize: isIpad ? 32 : 24,
+                                        color: Colors.blue)),
                               ),
                             );
                           } else {

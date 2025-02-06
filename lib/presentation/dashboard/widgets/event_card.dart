@@ -4,11 +4,13 @@ import 'package:on_point_executions/common/widgets/base_text.dart';
 class EventCard extends StatelessWidget {
   final String eventName;
   final bool isActive;
+  Color? backgroundColor;
 
-  const EventCard({
+   EventCard({
     super.key,
     required this.eventName,
     required this.isActive,
+    this.backgroundColor,
   });
 
   @override
@@ -16,6 +18,7 @@ class EventCard extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
 
     return Card(
+      color: backgroundColor,
       elevation: 8.0,
       margin: const EdgeInsets.symmetric(vertical: 12.0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
