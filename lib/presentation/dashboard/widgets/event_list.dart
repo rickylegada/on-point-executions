@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:on_point_executions/domain/models/admin_dashboard_model.dart';
+import 'package:on_point_executions/common/widgets/index.dart';
+import 'package:on_point_executions/domain/models/event_model.dart';
 import 'package:on_point_executions/presentation/dashboard/widgets/event_card.dart';
 
 class EventList extends StatelessWidget {
-  final List<AdminDashboardModel> events;
-  final Function(AdminDashboardModel, int) onEventTap;
+  final List<EventModel> events;
+  final Function(EventModel, int) onEventTap;
   final int? focusedEventIndex;
+
 
   const EventList({
     super.key,
@@ -25,10 +27,13 @@ class EventList extends StatelessWidget {
 
           return GestureDetector(
             onTap: () => onEventTap(event, index),
-            child: EventCard(
-              eventName: event.eventName,
-              isActive: event.isActive,
-              backgroundColor: isFocused ? Colors.blue[50] : Colors.white,
+            child: BasePadding(
+              verticalPadding: 5,
+              child: EventCard(
+                eventName: event.eventName,
+                isActive: event.isActive,
+                backgroundColor: isFocused ? Colors.blue[50] : Colors.white,
+              ),
             ),
           );
         },

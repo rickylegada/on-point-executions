@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:on_point_executions/common/config/configuration.dart';
 import 'package:on_point_executions/common/widgets/index.dart';
-import 'package:on_point_executions/domain/models/admin_dashboard_model.dart';
+import 'package:on_point_executions/domain/models/event_model.dart';
 import 'package:on_point_executions/presentation/dashboard/cubit/dashboard_cubit.dart';
 import 'package:on_point_executions/presentation/dashboard/cubit/dashboard_state.dart';
 import 'package:on_point_executions/presentation/dashboard/widgets/admin_dashboard.dart';
@@ -37,46 +37,42 @@ class _DashboardScreenState extends State<DashboardScreen> {
           title: BaseText.titleText(Config.appName, bold: true),
           backgroundColor: Colors.yellow,
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding, vertical: 24.0),
-          child: BlocBuilder<DashboardCubit, DashboardState>(
-            builder: (context, state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  EventList(
-                    events: widget.events.map((event) {
-                      return AdminDashboardModel(
-                        eventName: event['name'],
-                        isActive: event['isActive'],
-                        registeredUsers: 0,
-                        participantNames: [], // Initial dummy values
+        body: BlocBuilder<DashboardCubit, DashboardState>(
+          builder: (context, state) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EventList(
+                  events: widget.events.map((event) {
+                    return EventModel(
+                      eventName: event['name'],
+                      isActive: event['isActive'],
+                      registeredUsers: 0,
+                      participantNames: ['ricky', 'ricky 2','ricky', 'ricky 2','ricky', 'ricky 2','ricky', 'ricky 2','ricky', 'ricky 2','ricky', 'ricky 2'], // Initial dummy values
+                    );
+                  }).toList(),
+                  onEventTap: (eventModel, index) {
+                    if (state.isAdmin) {
+                      context.read<DashboardCubit>().selectEvent(eventModel,index);
+                    } else {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegistrationScreen(
+                                  eventName: 'test',
+                                )),
+                        (Route<dynamic> route) => false,
                       );
-                    }).toList(),
-                    onEventTap: (eventModel, index) {
-                      if (state.isAdmin) {
-                        context.read<DashboardCubit>().selectEvent(eventModel);
-                      } else {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RegistrationScreen(
-                                    eventName: 'test',
-                                  )),
-                          (Route<dynamic> route) => false,
-                        );
-                      }
-                    },
-                    focusedEventIndex: focusedEventIndex,
-                  ),
-                  if (state.isAdmin) const SizedBox(height: 24),
-                  if (state.isAdmin)
-                    AdminDashboard(selectedEvent: state.adminDashboardModel),
-                ],
-              );
-            },
-          ),
+                    }
+                  },
+                  focusedEventIndex: state.focusedIndex,
+                ),
+                if (state.isAdmin) const SizedBox(height: 24),
+                if (state.isAdmin)
+                  AdminDashboard(selectedEvent: state.eventModel),
+              ],
+            );
+          },
         ),
         endDrawer: Drawer(
           child: ListView(

@@ -82,69 +82,17 @@ class PinCodeScreen extends StatelessWidget {
                         ),
                         itemCount: 12,
                         itemBuilder: (context, index) {
-                          if (index < 9) {
-                            return SizedBox(
-                              width: buttonSize,
-                              height: buttonSize,
-                              child: TextButton(
-                                onPressed: () {
-                                  if (state.pin.length < 4) {
-                                    context
-                                        .read<LoginCubit>()
-                                        .addPin((index + 1).toString());
-                                  }
-                                },
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.blue,
-                                  backgroundColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                ),
-                                child: Text(
-                                  (index + 1).toString(),
-                                  style: TextStyle(
-                                    fontSize: isIpad ? 32 : 24,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                              ),
-                            );
-                          } else if (index == 9) {
-                            return const SizedBox.shrink();
-                          } else if (index == 10) {
-                            return SizedBox(
-                              width: buttonSize,
-                              height: buttonSize,
-                              child: TextButton(
-                                onPressed: () {
-                                  if (state.pin.length < 4) {
-                                    context.read<LoginCubit>().addPin('0');
-                                  }
-                                },
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.blue,
-                                  backgroundColor: Colors.transparent,
-                                ),
-                                child: Text('0',
-                                    style: TextStyle(
-                                        fontSize: isIpad ? 32 : 24,
-                                        color: Colors.blue)),
-                              ),
-                            );
-                          } else {
-                            return SizedBox(
-                              width: buttonSize,
-                              height: buttonSize,
-                              child: IconButton(
-                                onPressed: () {
-                                  context.read<LoginCubit>().removePin();
-                                },
-                                icon: const Icon(Icons.backspace),
-                                color: Colors.blue,
-                                iconSize: 20,
-                              ),
-                            );
+                          switch (index) {
+                            case 11:
+                              return _backSpaceButton(buttonSize, context);
+                            case 9:
+                              return const SizedBox.shrink();
+                            case 10:
+                              return _buildNumericalButton(
+                                  buttonSize, state, context, 0, isIpad);
+                            default:
+                              return _buildNumericalButton(buttonSize, state,
+                                  context, index + 1, isIpad);
                           }
                         },
                       ),
@@ -155,6 +103,42 @@ class PinCodeScreen extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  SizedBox _backSpaceButton(double buttonSize, BuildContext context) {
+    return SizedBox(
+      width: buttonSize,
+      height: buttonSize,
+      child: IconButton(
+        onPressed: () {
+          context.read<LoginCubit>().removePin();
+        },
+        icon: const Icon(Icons.backspace),
+        color: Colors.blue,
+        iconSize: 20,
+      ),
+    );
+  }
+
+  SizedBox _buildNumericalButton(double buttonSize, LoginState state,
+      BuildContext context, int index, bool isIpad) {
+    return SizedBox(
+      width: buttonSize,
+      height: buttonSize,
+      child: TextButton(
+        onPressed: () {
+          if (state.pin.length < 4) {
+            context.read<LoginCubit>().addPin('${(index)}');
+          }
+        },
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.blue,
+          backgroundColor: Colors.transparent,
+        ),
+        child: Text((index).toString(),
+            style: TextStyle(fontSize: isIpad ? 32 : 24, color: Colors.blue)),
       ),
     );
   }

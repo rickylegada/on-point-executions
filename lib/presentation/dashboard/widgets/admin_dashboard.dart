@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:on_point_executions/domain/models/admin_dashboard_model.dart';
+import 'package:on_point_executions/common/widgets/index.dart';
+import 'package:on_point_executions/domain/models/event_model.dart';
 
 class AdminDashboard extends StatefulWidget {
-  final AdminDashboardModel? selectedEvent;
+  final EventModel? selectedEvent;
 
   const AdminDashboard({super.key, this.selectedEvent});
 
@@ -16,6 +17,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final bool isIpad = screenWidth > 800;
     print('testlog adminDashboard - ${widget.selectedEvent}');
     return Container(
       padding: const EdgeInsets.all(16.0),
@@ -24,45 +27,56 @@ class _AdminDashboardState extends State<AdminDashboard> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [BoxShadow(blurRadius: 4, color: Colors.black12)],
       ),
-      child: widget.selectedEvent != null ? _buildEventDetails() : _buildEventForm(),
+      child: SizedBox(
+        height: isIpad ? 500 : 200,
+        width: double.infinity,
+        child: SingleChildScrollView(
+            child: widget.selectedEvent != null
+                ? _buildEventDetails()
+                : _buildEventForm()),
+      ),
     );
   }
 
-Widget _buildEventDetails() {
-  if (widget.selectedEvent == null) {
-    return const Text('No event selected');
+  Widget _buildEventDetails() {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final bool isIpad = screenWidth > 800;
+
+    if (widget.selectedEvent == null) {
+      return const Text('No event selected');
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Event Name: ${widget.selectedEvent!.eventName}',
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 16),
+        Text('Registered Users: ${widget.selectedEvent!.registeredUsers}'),
+        const SizedBox(height: 16),
+        const Text(
+          'Participant List:',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        ),
+        SizedBox(
+          height: 400,
+          child: widget.selectedEvent!.participantNames.isEmpty
+              ? const Center(child: Text('No participants registered.'))
+              : ListView.builder(
+                  itemCount: widget.selectedEvent!.participantNames.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(
+                          widget.selectedEvent!.participantNames[index]),
+                    );
+                  },
+                ),
+        ),
+      ],
+    );
   }
-
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        'Event Name: ${widget.selectedEvent!.eventName}',
-        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      ),
-      const SizedBox(height: 16),
-      Text('Registered Users: ${widget.selectedEvent!.registeredUsers}'),
-      const SizedBox(height: 16),
-      const Text(
-        'Participant List:',
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-      ),
-      Expanded(
-        child: widget.selectedEvent!.participantNames.isEmpty
-            ? const Center(child: Text('No participants registered.'))
-            : ListView.builder(
-                itemCount: widget.selectedEvent!.participantNames.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(widget.selectedEvent!.participantNames[index]),
-                  );
-                },
-              ),
-      ),
-    ],
-  );
-}
-
 
   Widget _buildEventForm() {
     print("testlog buildEventForm");
@@ -71,11 +85,12 @@ Widget _buildEventDetails() {
       children: [
         Row(
           children: [
-            const Text("Event Title: "),
+            BaseText.defaultText("Event Title: "),
             Expanded(
               child: TextFormField(
                 initialValue: '',
-                decoration: const InputDecoration(hintText: 'Enter Event Title'),
+                decoration:
+                    const InputDecoration(hintText: 'Enter Event Title'),
               ),
             ),
           ],

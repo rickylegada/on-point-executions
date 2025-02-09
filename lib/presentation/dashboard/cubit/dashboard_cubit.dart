@@ -1,7 +1,7 @@
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:on_point_executions/domain/models/admin_dashboard_model.dart';
+import 'package:on_point_executions/domain/models/event_model.dart';
 
 import 'dashboard_state.dart';
 
@@ -12,8 +12,8 @@ class DashboardCubit extends Cubit<DashboardState> {
     emit(state.copyWith(isAdmin: isAdmin));
   }
 
-  void selectEvent(AdminDashboardModel adminDashboardModel){
-    emit(state.copyWith(adminDashboardModel: adminDashboardModel));
+  void selectEvent(EventModel eventModel, int selectedIndex){
+    emit(state.copyWith(eventModel: eventModel,focusedIndex:  selectedIndex));
   }
 
 
