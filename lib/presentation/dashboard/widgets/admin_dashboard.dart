@@ -8,10 +8,10 @@ class AdminDashboard extends StatefulWidget {
   const AdminDashboard({super.key, this.selectedEvent});
 
   @override
-  _AdminDashboardState createState() => _AdminDashboardState();
+  AdminDashboardState createState() => AdminDashboardState();
 }
 
-class _AdminDashboardState extends State<AdminDashboard> {
+class AdminDashboardState extends State<AdminDashboard> {
   List<String> fields = ["Enter Field Name"];
   bool isActive = false;
 

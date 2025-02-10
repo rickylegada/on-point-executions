@@ -34,6 +34,7 @@ class PinCodeScreen extends StatelessWidget {
                   events: [
                     {'name': 'Event 1', 'isActive': true},
                     {'name': 'Event 2', 'isActive': false},
+                    {'name': 'Event 2', 'isActive': false},
                   ],
                   isAdmin: true,
                 ),

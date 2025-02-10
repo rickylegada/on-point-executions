@@ -19,7 +19,7 @@ class DashboardState {
     return DashboardState(
       isAdmin: isAdmin ?? this.isAdmin,
       eventModel: eventModel ?? this.eventModel,
-      focusedIndex: focusedIndex ?? this.focusedIndex,
+      focusedIndex: focusedIndex,
     );
   }
 }

@@ -48,19 +48,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       eventName: event['name'],
                       isActive: event['isActive'],
                       registeredUsers: 0,
-                      participantNames: ['ricky', 'ricky 2','ricky', 'ricky 2','ricky', 'ricky 2','ricky', 'ricky 2','ricky', 'ricky 2','ricky', 'ricky 2'], // Initial dummy values
+                      participantNames: [
+                        'ricky',
+                        'ricky 2',
+                        'ricky',
+                        'ricky 2',
+                        'ricky',
+                        'ricky 2',
+                        'ricky',
+                        'ricky 2',
+                        'ricky',
+                        'ricky 2',
+                        'ricky',
+                        'ricky 2'
+                      ], // Initial dummy values
                     );
                   }).toList(),
                   onEventTap: (eventModel, index) {
                     if (state.isAdmin) {
-                      context.read<DashboardCubit>().selectEvent(eventModel,index);
+                      context.read<DashboardCubit>().selectEvent(eventModel,
+                          (index == state.focusedIndex) ? null : index);
                     } else {
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RegistrationScreen(
-                                  eventName: 'test',
-                                )),
+                          builder: (context) => RegistrationScreen(
+                            eventName: 'test',
+                          ),
+                        ),
                         (Route<dynamic> route) => false,
                       );
                     }
@@ -69,7 +84,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 if (state.isAdmin) const SizedBox(height: 24),
                 if (state.isAdmin)
-                  AdminDashboard(selectedEvent: state.eventModel),
+                  AdminDashboard(
+                      selectedEvent: (state.focusedIndex == null)
+                          ? null
+                          : state.eventModel),
               ],
             );
           },

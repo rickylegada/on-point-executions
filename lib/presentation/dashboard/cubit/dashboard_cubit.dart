@@ -12,7 +12,8 @@ class DashboardCubit extends Cubit<DashboardState> {
     emit(state.copyWith(isAdmin: isAdmin));
   }
 
-  void selectEvent(EventModel eventModel, int selectedIndex){
+  void selectEvent(EventModel eventModel, int? selectedIndex){
+    print("ricky selectEvent - $selectedIndex");
     emit(state.copyWith(eventModel: eventModel,focusedIndex:  selectedIndex));
   }
 
