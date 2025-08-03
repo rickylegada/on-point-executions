@@ -59,9 +59,9 @@ class BaseTextField extends StatelessWidget {
         maxLines: maxLines,
         decoration: InputDecoration(
           filled: true,
-          fillColor: Colors.grey.shade300,
+          fillColor: Colors.grey.shade200,
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(4),
               borderSide: BorderSide.none),
           hintText: hintText,
         ),

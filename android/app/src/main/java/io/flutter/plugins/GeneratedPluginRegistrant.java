@@ -16,6 +16,11 @@ public final class GeneratedPluginRegistrant {
   private static final String TAG = "GeneratedPluginRegistrant";
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     try {
+      flutterEngine.getPlugins().add(new io.flutter.plugins.pathprovider.PathProviderPlugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin path_provider_android, io.flutter.plugins.pathprovider.PathProviderPlugin", e);
+    }
+    try {
       flutterEngine.getPlugins().add(new net.touchcapture.qr.flutterqrplus.FlutterQrPlusPlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin qr_code_scanner_plus, net.touchcapture.qr.flutterqrplus.FlutterQrPlusPlugin", e);

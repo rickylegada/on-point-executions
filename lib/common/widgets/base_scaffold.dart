@@ -32,7 +32,7 @@ class BaseScaffold extends StatelessWidget {
       floatingActionButton: floatingActionButton,
       bottomNavigationBar: bottomNavigationBar,
       drawer: drawer,
-      backgroundColor: backgroundColor ,
+      backgroundColor: backgroundColor ?? Colors.grey.shade100 ,
       endDrawer: endDrawer,
     );
   }

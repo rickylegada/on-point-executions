@@ -24,6 +24,7 @@ class EventList extends StatelessWidget {
         itemBuilder: (context, index) {
           final event = events[index];
           final isFocused = focusedEventIndex == index;
+          print("ricky isfocused = $isFocused $focusedEventIndex $index");
 
           return GestureDetector(
             onTap: () => onEventTap(event, index),

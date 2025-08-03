@@ -8,6 +8,7 @@ import 'package:on_point_executions/presentation/dashboard/cubit/dashboard_state
 import 'package:on_point_executions/presentation/dashboard/widgets/admin_dashboard.dart';
 import 'package:on_point_executions/presentation/dashboard/widgets/event_list.dart';
 import 'package:on_point_executions/presentation/login/login_screen.dart';
+import 'package:on_point_executions/presentation/qr/generate_qr_code_screen.dart';
 import 'package:on_point_executions/presentation/registration/registration_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -18,16 +19,16 @@ class DashboardScreen extends StatefulWidget {
       {super.key, required this.events, required this.isAdmin});
 
   @override
-  _DashboardScreenState createState() => _DashboardScreenState();
+  DashboardScreenState createState() => DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class DashboardScreenState extends State<DashboardScreen> {
   int? focusedEventIndex;
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double horizontalPadding = screenWidth > 600 ? 32.0 : 16.0;
+    // final double screenWidth = MediaQuery.of(context).size.width;
+    // final double horizontalPadding = screenWidth > 600 ? 32.0 : 16.0;
 
     return BlocProvider(
       create: (context) => DashboardCubit()..login(widget.isAdmin),
@@ -42,47 +43,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                EventList(
-                  events: widget.events.map((event) {
-                    return EventModel(
-                      eventName: event['name'],
-                      isActive: event['isActive'],
-                      registeredUsers: 0,
-                      participantNames: [
-                        'ricky',
-                        'ricky 2',
-                        'ricky',
-                        'ricky 2',
-                        'ricky',
-                        'ricky 2',
-                        'ricky',
-                        'ricky 2',
-                        'ricky',
-                        'ricky 2',
-                        'ricky',
-                        'ricky 2'
-                      ], // Initial dummy values
-                    );
-                  }).toList(),
-                  onEventTap: (eventModel, index) {
-                    if (state.isAdmin) {
-                      context.read<DashboardCubit>().selectEvent(eventModel,
-                          (index == state.focusedIndex) ? null : index);
-                    } else {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RegistrationScreen(
-                            eventName: 'test',
-                          ),
-                        ),
-                        (Route<dynamic> route) => false,
-                      );
-                    }
-                  },
-                  focusedEventIndex: state.focusedIndex,
-                ),
-                if (state.isAdmin) const SizedBox(height: 24),
+                eventList(state, context),
                 if (state.isAdmin)
                   AdminDashboard(
                       selectedEvent: (state.focusedIndex == null)
@@ -113,14 +74,67 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
-                onTap: () => Navigator.pop(context),
+                leading: Icon(Icons.qr_code),
+                title: Text('Generate QR Code'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => GenerateQRCodeScreen()),
+                  );
+                },
               ),
+              // ListTile(
+              //   leading: const Icon(Icons.settings),
+              //   title: const Text('Settings'),
+              //   onTap: () => Navigator.pop(context),
+              // ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget eventList(DashboardState state, BuildContext context) {
+    return EventList(
+      events: widget.events.map((event) {
+        return EventModel(
+          eventName: event['name'],
+          isActive: event['isActive'],
+          registeredUsers: 0,
+          participantNames: [
+            'ricky',
+            'ricky 2',
+            'ricky',
+            'ricky 2',
+            'ricky',
+            'ricky 2',
+            'ricky',
+            'ricky 2',
+            'ricky',
+            'ricky 2',
+            'ricky',
+            'ricky 2'
+          ],
+        );
+      }).toList(),
+      onEventTap: (eventModel, index) {
+        if (state.isAdmin) {
+          context.read<DashboardCubit>().selectEvent(
+              eventModel, (index == state.focusedIndex) ? null : index);
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RegistrationScreen(
+                eventName: 'test',
+              ),
+            ),
+          );
+        }
+      },
+      focusedEventIndex: state.focusedIndex,
     );
   }
 }

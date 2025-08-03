@@ -16,6 +16,8 @@ dependencies:
   json_annotation: ^4.1.0
   qr_code_scanner_plus: ^2.0.9+1
   retrofit: ^4.4.1
+  qr_flutter: ^4.1.0
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:

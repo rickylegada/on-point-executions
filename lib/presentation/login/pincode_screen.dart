@@ -7,7 +7,8 @@ import 'cubit/login_cubit.dart';
 import 'cubit/login_state.dart';
 
 class PinCodeScreen extends StatelessWidget {
-  const PinCodeScreen({super.key});
+  final String username;
+  const PinCodeScreen({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +31,13 @@ class PinCodeScreen extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => const DashboardScreen(
-                  events: [
+                builder: (context) => DashboardScreen(
+                  events: const [
                     {'name': 'Event 1', 'isActive': true},
                     {'name': 'Event 2', 'isActive': false},
                     {'name': 'Event 2', 'isActive': false},
                   ],
-                  isAdmin: true,
+                  isAdmin: username == 'admin' ? true : false,
                 ),
               ),
               (Route<dynamic> route) => false,

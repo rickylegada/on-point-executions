@@ -4,12 +4,16 @@ import 'package:on_point_executions/common/config/configuration.dart';
 class BasePadding extends StatelessWidget {
   final Widget child;
   final bool isLarge;
+  final bool enableHorizontalPadding;
+  final bool enableVerticalPadding;
   final double? verticalPadding;
 
    const BasePadding(
       {super.key,
       required this.child,
       this.isLarge = false,
+      this.enableHorizontalPadding = true,
+      this.enableVerticalPadding = true,
       this.verticalPadding,
       });
 
@@ -34,8 +38,8 @@ class BasePadding extends StatelessWidget {
     }
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding,
-        vertical: verticalPadding ?? 0,
+        horizontal: enableHorizontalPadding ? horizontalPadding : 0,
+        vertical: enableVerticalPadding ? verticalPadding ?? Config.defaultPadding : 0,
       ),
       child: child,
     );
